@@ -1,0 +1,19 @@
+{
+  "contractName": "SimpleStore",
+  "abi": [],
+  "bytecode": "0x605880600c6000396000f3fe60006024818037805160e01c80636057361d14602a57636d4ce63c14602057005b5460645260206064f35b507f69404ebde4a368ae324ed310becfefc3edfe9e5ebca74464e37ffffd8309a3c16004519182815580a23800",
+  "deployedBytecode": "0x60006024818037805160e01c80636057361d14602a57636d4ce63c14602057005b5460645260206064f35b507f69404ebde4a368ae324ed310becfefc3edfe9e5ebca74464e37ffffd8309a3c16004519182815580a23800",
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "71:19:0:-:0;48:21;;45:1;36:55;45:1;96:30",
+  "deployedSourceMap": "1294:1:0:-:0;1297:2;1278:22;;;225:15;;249:24;221:54;1427:223;1432:10;1427:223;;;1663:10;1658:80;;;1344:394;1674:64;1696:8;1691:3;1684:21;258:14;1691:3;1714:16;1443:207;225:15;1553:66;370:1;225:15;1477:31;;;;1542:100;;1443:207;1344:394",
+  "source": "object \"SimpleStore\" {\n  code {\n    datacopy(0, dataoffset(\"Runtime\"), datasize(\"Runtime\"))\n    return(0, datasize(\"Runtime\"))\n  }\n  object \"Runtime\" {\n    code {\nfunction mslice(position, length) -> result {\n  result := div(mload(position), exp(2, sub(256, mul(length, 8))))\n}\n\n\nfunction StoreCalldata.sig(pos) -> res {\n  res := mslice(StoreCalldata.sig.position(pos), 4)\n}\n\n\n\nfunction StoreCalldata.sig.position(_pos) -> _offset {\n  \n      \n        function StoreCalldata.sig.position._chunk0(pos) -> __r {\n          __r := 0x00\n        }\n      \n        function StoreCalldata.sig.position._chunk1(pos) -> __r {\n          __r := pos\n        }\n      \n\n      _offset := add(StoreCalldata.sig.position._chunk0(_pos), add(StoreCalldata.sig.position._chunk1(_pos), 0))\n    \n}\n\n\n\nfunction StoreCalldata.val(pos) -> res {\n  res := mslice(StoreCalldata.val.position(pos), 32)\n}\n\n\n\nfunction StoreCalldata.val.position(_pos) -> _offset {\n  \n      \n        function StoreCalldata.val.position._chunk0(pos) -> __r {\n          __r := 0x04\n        }\n      \n        function StoreCalldata.val.position._chunk1(pos) -> __r {\n          __r := pos\n        }\n      \n\n      _offset := add(StoreCalldata.val.position._chunk0(_pos), add(StoreCalldata.val.position._chunk1(_pos), 0))\n    \n}\n\n\n      calldatacopy(0, 0, 36) // write calldata to memory\n\n      \n\n      switch StoreCalldata.sig(0) // select signature from memory (at position 0)\n\n      case 0x6057361d { // new signature method\n        sstore(0, StoreCalldata.val(0)) // sstore calldata value\n        log2(0, 0, 0x69404ebde4a368ae324ed310becfefc3edfe9e5ebca74464e37ffffd8309a3c1, StoreCalldata.val(0))\n      }\n\n      case 0x6d4ce63c {\n        mstore(100, sload(0))\n        return (100, 32)\n      }\n    }\n  }\n}",
+  "sourcePath": "/home/johann/Documents/Code/Yul-Truffle-Box/contracts/SimpleStore.yul",
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.10+commit.fc410830.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.3",
+  "updatedAt": "2021-12-11T23:40:32.158Z"
+}
