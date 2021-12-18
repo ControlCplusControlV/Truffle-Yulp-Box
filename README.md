@@ -10,7 +10,7 @@ npm install yulp
 then, simply run
 
 ```
-node transpile.js
+node transpile.js truffle
 ```
 
 and then your usual
