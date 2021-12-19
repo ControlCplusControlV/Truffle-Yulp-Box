@@ -38,6 +38,7 @@ fs.readdir("./Yul+ Contracts/", (err, files) => {
             let contractObjects = Object.keys(output.contracts["Target.yul"])
             let abi = source.signatures.map(v => v.abi.slice(4, -1)).concat(source.topics.map(v => v.abi.slice(6, -1)))
             let bytecode = "0x" + output.contracts["Target.yul"][contractObjects[0]]["evm"]["bytecode"]["object"];
+            let deployedBytecode = "0x" + output.contracts["Target.yul"][contractObjects[0]]["evm"]["deployedBytecode"]["object"];
             if (process.argv.indexOf('hardhat') > -1){
               // if hardhat flag is present
               var hardhatCompiled = {
@@ -78,19 +79,30 @@ fs.readdir("./Yul+ Contracts/", (err, files) => {
                 }
               } 
               // Convert abi to a solidity like interface
-              abi = "pragma solidity ^0.8.10;\n interface " + "I" + filename[0] + "{\n" + abiBlock + "\n}"
+              abi = "pragma solidity ^0.8.10;\n interface " + "YulpInterface" + "{\n" + abiBlock + "\n}"
               // Write abi to an interface then compile that
-              fs.writeFile("./contracts/" + "I" + filename[0] + '.sol', abi, (err) => {
-                // In case of a error throw err.
-                if (err) throw err;
-              })
+              let compiledInterface = JSON.parse(solc.compile(JSON.stringify({
+                "language": "Solidity",
+                "sources": { "Target.sol": { "content": abi } },
+                "settings": {
+                  "outputSelection": { "*": { "*": ["*"], "": [ "*" ] } },
+                  "optimizer": {
+                    "enabled": true,
+                    "runs": 0,
+                    "details": {
+                      "yul": false
+                    }
+                  }
+                }
+              })));  
+              let compiledABI = compiledInterface.contracts["Target.sol"]["YulpInterface"]["abi"]
               // Next run truffle compile
               exec("truffle compile", (error, stdout, stderr) => {
                 console.log(stdout)
                 // Next read the created .json file, and inject abi into it
-                const Truffledata = JSON.parse(fs.readFileSync("./build/contracts/" + "I" + filename[0] + ".json"))
                 const data = JSON.parse(fs.readFileSync("./build/contracts/" + filename[0] + ".json"))
-                data.abi = Truffledata.abi
+                data.abi = compiledABI
+                data.deployedBytecode = deployedBytecode
                 fs.writeFileSync("./build/contracts/" + filename[0] + ".json", JSON.stringify(data, null, 4));
               });
         }
