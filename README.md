@@ -1,24 +1,22 @@
 # Truffle-Yulp-Box
 A Good Starting Repo for Any Yul+ Project
 
-To use, much more easily than my hardhat plugin just run
+To use first make sure yul-log is installed via
 
 ```
-npm install yulp
+npm install -g yul-log
 ```
 
-then, simply run
+then you can simply run
 
 ```
-node transpile.js truffle
+yul-log truffle
 ```
 
-and then your usual
+to compile and 
 
 ```
-truffle compile
+truffle test
 ```
 
-and it works perfectly
-
-More details to come!
+to test your contracts like you would with any other truffle project!
