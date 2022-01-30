@@ -7,6 +7,13 @@ To use first make sure yul-log is installed via
 npm install -g yul-log
 ```
 
+then clone the truffle box and cd into it
+
+```
+git clone https://github.com/ControlCplusControlV/Truffle-Yulp-Box.git
+cd Truffle-Yulp-Box
+```
+
 then you can simply run
 
 ```
